@@ -1,0 +1,24 @@
+version: '3.7'
+
+services:
+  db:
+    image: mongo:4.2-bionic
+    restart: always
+    env_file: .env
+    volumes:
+      - url-shortener-db:/data/db
+  api:
+    build: .
+    volumes:
+      - .:/app
+    ports:
+      - '3000:3000'
+    env_file: .env
+    command: ['npm', 'run', 'dev']
+
+volumes:
+  url-shortener-db:
+    driver_opts:
+      type: none
+      device: ${PWD}/.docker/volumes/db
+      o: bind
