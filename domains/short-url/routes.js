@@ -21,7 +21,7 @@ router.post('/new', async (req, res) => {
         short_url: found.shortURL,
       });
     } else {
-      const count = await Model.count({});
+      const count = await Model.countDocuments({});
 
       const newUrl = new Model({
         originalURL: url,
